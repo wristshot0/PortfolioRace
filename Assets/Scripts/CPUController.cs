@@ -32,5 +32,7 @@ public class CPUController : CarController
 
             StartCoroutine(DestroyPowerUp(collision.gameObject));
         }
+        else if (collision.CompareTag("finishline"))
+            FinishRace();
     }
 }

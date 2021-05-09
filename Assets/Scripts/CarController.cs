@@ -27,6 +27,9 @@ public abstract class CarController : MonoBehaviour
     // Engine audio
     protected AudioSource engineAudio;
 
+    // Finished?
+    bool finished = false;
+
     protected void Awake()
     {
         t = transform;
@@ -83,5 +86,15 @@ public abstract class CarController : MonoBehaviour
     {
         return Mathf.Max(0f, Mathf.Min(1f, riskAversion * (currentSpeed
             - minBlowupTopSpeedPercentage * topSpeed) / (topSpeed - minBlowupTopSpeedPercentage * topSpeed)));
+    }
+
+    protected void FinishRace()
+    {
+        if (!finished)
+        {
+            finished = true;
+
+            gm.numFinishers++;
+        }
     }
 }

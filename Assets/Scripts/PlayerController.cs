@@ -61,6 +61,8 @@ public class PlayerController : CarController
 
             StartCoroutine(DestroyPowerUp(collision.gameObject));
         }
+        else if (collision.CompareTag("finishline"))
+            FinishRace();
     }
 
     private IEnumerator AnnouncePowerUp(PowerUp powerUp)

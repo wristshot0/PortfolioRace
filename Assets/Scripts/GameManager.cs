@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
     // Game data.
     public int numPlayers = 4;
 
-    // Speed is the player's speed. All things move relative to player.
+    public int numFinishers = 0;
+
     public GameState gameState;
 
     public enum GameState
@@ -31,5 +32,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         gameState = GameState.gameplay;
+    }
+
+    private void Update()
+    {
+        if (numFinishers >= numPlayers)
+            gameState = GameState.endgame;
     }
 }
