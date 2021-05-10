@@ -10321,13 +10321,16 @@ MonoBehaviour:
   acceleration: 1
   brakingAcceleration: -1
   riskAversion: 0.15
-  minBlowupTopSpeedPercentage: 0.5
+  minBlowupTopSpeedPercentage: 0.67
   engineCheckTime: 2
   engineBlownTime: 6
   engineSmoke: {fileID: 3761667770525979287}
+  car: {fileID: 9045465435904317226}
   powerUpTime: 5
   phoneTesting: 0
   tachNeedleRT: {fileID: 0}
+  riskBannerImage: {fileID: 0}
+  riskText: {fileID: 0}
   powerUpText: {fileID: 9045465436710013938}
   engineBlownText: {fileID: 7497806555357898829}
   placeText: {fileID: 0}

@@ -55,10 +55,11 @@ MonoBehaviour:
   acceleration: 1
   brakingAcceleration: -1
   riskAversion: 0.4
-  minBlowupTopSpeedPercentage: 0.5
+  minBlowupTopSpeedPercentage: 0.67
   engineCheckTime: 2
   engineBlownTime: 6
   engineSmoke: {fileID: 2649150604712480212}
+  car: {fileID: 6431248115497382155}
   powerUpTime: 5
   aggression: 0.85
 --- !u!50 &1704434097388571834

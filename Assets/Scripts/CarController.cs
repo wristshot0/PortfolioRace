@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CreateNeptune;
 
 public abstract class CarController : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public abstract class CarController : MonoBehaviour
     [SerializeField] protected ParticleSystem engineSmoke;
 
     // Power-up
+    [SerializeField] protected GameObject car;
+    private Color startColor;
     [SerializeField] protected float powerUpTime;
     protected IEnumerator currentPowerUpRoutine;
     protected float normalRiskAversion;
@@ -43,6 +46,7 @@ public abstract class CarController : MonoBehaviour
 
     protected void Start()
     {
+        startColor = car.GetComponent<SpriteRenderer>().color;
         gm = GameObject.FindWithTag("gm").GetComponent<GameManager>();
 
         normalRiskAversion = riskAversion;
@@ -93,7 +97,7 @@ public abstract class CarController : MonoBehaviour
         riskAversion = powerUp.newRiskAversion;
         topSpeed = powerUp.newTopSpeed;
 
-        yield return new WaitForSeconds(powerUpTime);
+        yield return MPAction.FlashAnimation(car, 0.5f, powerUpTime, startColor, Color.white, false, false, false);
 
         riskAversion = normalRiskAversion;
         topSpeed = normalTopSpeed;
