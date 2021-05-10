@@ -54,6 +54,8 @@ MonoBehaviour:
   brakingAcceleration: -1
   riskAversion: 0.5
   minBlowupTopSpeedPercentage: 0.5
+  engineCheckTime: 2
+  engineBlownTime: 2
   powerUpTime: 5
   aggression: 0.85
 --- !u!50 &1704434097388571834
@@ -337,7 +339,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3741010868419674653, guid: c5623c6ea20ce429f90fd9d5ec739616, type: 2}
+  - {fileID: -7353570950923867705, guid: 30b268113cd9e4ca9822ce8f9c32663e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -381,8 +383,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: P2
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c5623c6ea20ce429f90fd9d5ec739616, type: 2}
-  m_sharedMaterial: {fileID: 3741010868419674653, guid: c5623c6ea20ce429f90fd9d5ec739616, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 30b268113cd9e4ca9822ce8f9c32663e, type: 2}
+  m_sharedMaterial: {fileID: -7353570950923867705, guid: 30b268113cd9e4ca9822ce8f9c32663e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -412,7 +414,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 4
   m_fontSizeMax: 8
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 3558882465635460099}
   - component: {fileID: 3558882465635460101}
   m_Layer: 0
-  m_Name: PowerUp
+  m_Name: Elon
   m_TagString: powerup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -314,6 +314,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b92c4efe241ea4db6b9ce297a720760b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUpMessage: 
+  powerUpMessage: Risk tolerance max!
   newRiskAversion: 0
   newTopSpeed: 10

@@ -17,6 +17,9 @@ public abstract class CarController : MonoBehaviour
     // Risk aversion varies between 0 and 1, where 0 is most risk tolerant and 1 is most risk averse.
     [SerializeField] protected float riskAversion;
     [SerializeField] protected float minBlowupTopSpeedPercentage;
+    protected bool engineBlown = false;
+    [SerializeField] protected float engineCheckTime;
+    [SerializeField] protected float engineBlownTime;
 
     // Power-up
     [SerializeField] protected float powerUpTime;
@@ -27,8 +30,8 @@ public abstract class CarController : MonoBehaviour
     // Engine audio
     protected AudioSource engineAudio;
 
-    // Finished?
-    bool finished = false;
+    // Finishing
+    protected bool finished = false;
 
     protected void Awake()
     {
@@ -43,6 +46,22 @@ public abstract class CarController : MonoBehaviour
 
         normalRiskAversion = riskAversion;
         normalTopSpeed = topSpeed;
+
+        StartCoroutine(CheckEngineBlown());
+    }
+
+    protected IEnumerator CheckEngineBlown()
+    {
+        yield return new WaitForSeconds(engineCheckTime);
+
+        if (Random.Range(0f, 1f) < PBlowUp())
+        {
+            engineBlown = true;
+
+            yield return new WaitForSeconds(engineBlownTime);
+        }
+
+        engineBlown = false;
     }
 
     protected void MakeEngineNoise()

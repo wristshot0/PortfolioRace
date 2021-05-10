@@ -7,11 +7,16 @@ public class CPUController : CarController
     // Aggression determines how fast CPU is willing to go relative to topSpeed before it slows down.
     [SerializeField] private float aggression;
 
+    private void Update()
+    {
+        MakeEngineNoise();
+    }
+
     protected override void FixedUpdate()
     {
         if (gm.gameState == GameManager.GameState.gameplay)
         {
-            if (currentSpeed < aggression * topSpeed)
+            if (currentSpeed < aggression * topSpeed && !engineBlown)
                 Drive();
             else
                 Brake();

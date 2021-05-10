@@ -20,12 +20,15 @@ public class PlayerController : CarController
 
     private void Update()
     {
-        if (gm.gameState == GameManager.GameState.gameplay)
+        if (gm.gameState == GameManager.GameState.gameplay && !finished && !engineBlown)
         {
             GetInput();
-            MoveTachometer();
-            MakeEngineNoise();
         }
+        else
+            playerTouching = false;
+
+        MoveTachometer();
+        MakeEngineNoise();
     }
 
     private void MoveTachometer()

@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Game data.
     public int numPlayers = 4;
-
     public int numFinishers = 0;
-
     public GameState gameState;
+    [SerializeField] private int numPowerUpsPerLane;
+    [SerializeField] private GameObject[] powerUps;
+    [SerializeField] private Transform[] playerTs;
+    [SerializeField] private Transform startingLineT;
+    [SerializeField] private Transform finishLineT;
 
     public enum GameState
     {
@@ -24,7 +26,26 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        CreatePowerUps();
+
         StartCoroutine(BeginRace());
+    }
+
+    private void CreatePowerUps()
+    {
+        // Instantiate power-ups between start and finish line at random. Create only 3 power-ups per lane for player.
+        for (int i = 0; i < playerTs.Length; i++)
+        {
+            for (int j = 0; j < numPowerUpsPerLane; j++)
+            {
+                float xLoc = playerTs[i].position.x;
+                float yLoc = Random.Range(0.25f * (finishLineT.position.y - startingLineT.position.y)
+                    + startingLineT.position.y, 0.9f * (finishLineT.position.y - startingLineT.position.y)
+                    + startingLineT.position.y);
+
+                Instantiate(powerUps[Random.Range(0, powerUps.Length)], new Vector2(xLoc, yLoc), Quaternion.identity);
+            }
+        }
     }
 
     private IEnumerator BeginRace()
