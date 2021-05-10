@@ -20,6 +20,7 @@ public abstract class CarController : MonoBehaviour
     protected bool engineBlown = false;
     [SerializeField] protected float engineCheckTime;
     [SerializeField] protected float engineBlownTime;
+    [SerializeField] protected ParticleSystem engineSmoke;
 
     // Power-up
     [SerializeField] protected float powerUpTime;
@@ -52,17 +53,31 @@ public abstract class CarController : MonoBehaviour
 
     protected IEnumerator CheckEngineBlown()
     {
-        yield return new WaitForSeconds(engineCheckTime);
-
-        if (Random.Range(0f, 1f) < PBlowUp())
+        for (; ;)
         {
-            engineBlown = true;
+            yield return new WaitForSeconds(engineCheckTime);
 
-            yield return new WaitForSeconds(engineBlownTime);
+            if (finished)
+                yield break;
+
+            if (Random.Range(0f, 1f) < PBlowUp())
+            {
+                engineBlown = true;
+
+                print("engine blown!");
+
+                StartCoroutine(EngineBlownRoutine());
+
+                yield return new WaitForSeconds(engineBlownTime);
+
+                print("engine recovered!");
+
+                engineBlown = false;
+            }
         }
-
-        engineBlown = false;
     }
+
+    protected abstract IEnumerator EngineBlownRoutine();
 
     protected void MakeEngineNoise()
     {
@@ -103,17 +118,14 @@ public abstract class CarController : MonoBehaviour
 
     protected float PBlowUp()
     {
-        return Mathf.Max(0f, Mathf.Min(1f, riskAversion * (currentSpeed
-            - minBlowupTopSpeedPercentage * topSpeed) / (topSpeed - minBlowupTopSpeedPercentage * topSpeed)));
+        float pBlow = riskAversion * (currentSpeed
+            - minBlowupTopSpeedPercentage * topSpeed)
+            / (topSpeed - minBlowupTopSpeedPercentage * topSpeed);
+
+        print(pBlow);
+
+        return Mathf.Max(0f, Mathf.Min(1f, pBlow));
     }
 
-    protected void FinishRace()
-    {
-        if (!finished)
-        {
-            finished = true;
-
-            gm.numFinishers++;
-        }
-    }
+    protected abstract void FinishRace();
 }

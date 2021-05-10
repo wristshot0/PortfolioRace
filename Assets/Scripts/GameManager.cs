@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform[] playerTs;
     [SerializeField] private Transform startingLineT;
     [SerializeField] private Transform finishLineT;
+
+    // GPS
+    public bool gpsPopped = false;
+    public Canvas gpsCanvas;
 
     public enum GameState
     {
@@ -58,6 +63,13 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (numFinishers >= numPlayers)
+        {
             gameState = GameState.endgame;
+        }
+    }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene(0);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CreateNeptune;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerController : CarController
 {
@@ -17,6 +18,12 @@ public class PlayerController : CarController
 
     // Power-up
     [SerializeField] private GameObject powerUpText;
+
+    // Engine blown text.
+    [SerializeField] private GameObject engineBlownText;
+
+    // Place.
+    [SerializeField] private Text placeText;
 
     private void Update()
     {
@@ -113,6 +120,53 @@ public class PlayerController : CarController
                 case TouchPhase.Ended:
                     playerTouching = false;
                     break;
+            }
+        }
+    }
+
+    protected override IEnumerator EngineBlownRoutine()
+    {
+        engineSmoke.Play();
+
+        yield return MPAction.ScaleObject(engineBlownText, Vector2.zero, Vector2.one, 0.25f, "easeineaseout", false, false, false, false);
+
+        yield return new WaitForSeconds(engineBlownTime - 0.5f);
+
+        yield return MPAction.ScaleObject(engineBlownText, Vector2.one, Vector2.zero, 0.25f, "easeineaseout", false, false, false, false);
+
+        engineSmoke.Stop();
+    }
+
+    protected override void FinishRace()
+    {
+        if (!finished)
+        {
+            finished = true;
+
+            gm.numFinishers++;
+
+            switch (gm.numFinishers)
+            {
+                case 1:
+                    placeText.text = "1st Place!";
+                    break;
+                case 2:
+                    placeText.text = "2nd Place!";
+                    break;
+                case 3:
+                    placeText.text = "3rd Place!";
+                    break;
+                default:
+                    placeText.text = "Last Place...";
+                    break;
+            }
+
+            if (!gm.gpsPopped)
+            {
+                print("gps enabled");
+
+                gm.gpsPopped = true;
+                gm.gpsCanvas.enabled = true;
             }
         }
     }

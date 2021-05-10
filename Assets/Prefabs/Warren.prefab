@@ -61,7 +61,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3558882465635460101, guid: a73e4c0d2702b48cda02c6407dca9d7d, type: 3}
       propertyPath: newTopSpeed
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3558882465635460101, guid: a73e4c0d2702b48cda02c6407dca9d7d, type: 3}
       propertyPath: powerUpMessage
@@ -69,7 +69,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3558882465635460101, guid: a73e4c0d2702b48cda02c6407dca9d7d, type: 3}
       propertyPath: newRiskAversion
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3558882465635460102, guid: a73e4c0d2702b48cda02c6407dca9d7d, type: 3}
       propertyPath: m_Name

@@ -40,4 +40,26 @@ public class CPUController : CarController
         else if (collision.CompareTag("finishline"))
             FinishRace();
     }
+
+    protected override IEnumerator EngineBlownRoutine()
+    {
+        engineSmoke.Play();
+
+        yield return new WaitForSeconds(engineBlownTime);
+
+        // After engine blows, adjust aggression down.
+        aggression *= 0.9f;
+
+        engineSmoke.Stop();
+    }
+
+    protected override void FinishRace()
+    {
+        if (!finished)
+        {
+            finished = true;
+
+            gm.numFinishers++;
+        }
+    }
 }

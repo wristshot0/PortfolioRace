@@ -50,3 +50,6 @@ TagManager:
   - name: Dashboard
     uniqueID: 372693035
     locked: 0
+  - name: GPS
+    uniqueID: 4108463927
+    locked: 0
