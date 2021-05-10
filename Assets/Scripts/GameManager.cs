@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.SceneManagement;
+using CreateNeptune;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +15,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform[] playerTs;
     [SerializeField] private Transform startingLineT;
     [SerializeField] private Transform finishLineT;
+
+    // Countdown at start.
+    [SerializeField] private GameObject countDown;
+    private float countDownTime = 3f;
 
     // GPS
     public bool gpsPopped = false;
@@ -55,7 +61,22 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator BeginRace()
     {
-        yield return new WaitForSeconds(3f);
+        float relativeTimeToDisplayNums = 0.5f;
+
+        for (int i = 3; i > 0; i--)
+        {
+            countDown.GetComponent<TextMeshPro>().text = i.ToString();
+
+            yield return MPAction.ScaleObject(countDown, Vector2.zero, Vector2.one,
+                countDownTime / 3f * (1f - relativeTimeToDisplayNums) * 0.5f, "easeineaseout", false, false, false, false);
+
+            yield return new WaitForSeconds(countDownTime / 3f * relativeTimeToDisplayNums);
+
+            yield return MPAction.ScaleObject(countDown, Vector2.one, Vector2.zero,
+                countDownTime / 3f * (1f - relativeTimeToDisplayNums) * 0.5f, "easeineaseout", false, false, false, false);
+        }
+
+        countDown.SetActive(false);
 
         gameState = GameState.gameplay;
     }

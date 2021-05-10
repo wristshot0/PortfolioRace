@@ -16,6 +16,10 @@ public class PlayerController : CarController
     private Vector2 minTach = new Vector2(-950f, 350f);
     private Vector2 maxTach = new Vector2 (950f, 350f);
 
+    // Risk assessment.
+    [SerializeField] private Image riskBannerImage;
+    [SerializeField] private Text riskText;
+
     // Power-up
     [SerializeField] private GameObject powerUpText;
 
@@ -34,8 +38,25 @@ public class PlayerController : CarController
         else
             playerTouching = false;
 
+        AssessRisk();
         MoveTachometer();
         MakeEngineNoise();
+    }
+
+    private void AssessRisk()
+    {
+        float relativeRisk = currentSpeed / topSpeed;
+
+        riskBannerImage.color = Color.HSVToRGB((1f - relativeRisk) * 0.333f, 1f, 1f);
+
+        if (relativeRisk < 0.33f)
+            riskText.text = "Risk: Low";
+        else if (relativeRisk < 0.67f)
+            riskText.text = "Risk: Medium";
+        else if (relativeRisk < 0.9f)
+            riskText.text = "Risk: High";
+        else
+            riskText.text = "Risk: Very High";
     }
 
     private void MoveTachometer()
@@ -111,8 +132,10 @@ public class PlayerController : CarController
                     playerTouching = true;
                     break;
                 case TouchPhase.Moved:
+                    playerTouching = true;
                     break;
                 case TouchPhase.Stationary:
+                    playerTouching = true;
                     break;
                 case TouchPhase.Canceled:
                     playerTouching = false;
