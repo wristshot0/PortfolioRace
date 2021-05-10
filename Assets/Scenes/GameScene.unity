@@ -15786,7 +15786,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4138935103548346510, guid: 7f2c994d0760f4185939271c3dc6a0ad, type: 3}
       propertyPath: aggression
-      value: 0.9
+      value: 0.85
       objectReference: {fileID: 0}
     - target: {fileID: 4138935103548346510, guid: 7f2c994d0760f4185939271c3dc6a0ad, type: 3}
       propertyPath: acceleration
@@ -29442,7 +29442,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4138935103548346510, guid: 7f2c994d0760f4185939271c3dc6a0ad, type: 3}
       propertyPath: topSpeed
-      value: 7.5
+      value: 7.25
       objectReference: {fileID: 0}
     - target: {fileID: 4138935103548346510, guid: 7f2c994d0760f4185939271c3dc6a0ad, type: 3}
       propertyPath: aggression

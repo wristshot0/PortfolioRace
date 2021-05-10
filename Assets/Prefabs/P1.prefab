@@ -10323,7 +10323,7 @@ MonoBehaviour:
   riskAversion: 0.15
   minBlowupTopSpeedPercentage: 0.67
   engineCheckTime: 2
-  engineBlownTime: 6
+  engineBlownTime: 5
   engineSmoke: {fileID: 3761667770525979287}
   car: {fileID: 9045465435904317226}
   powerUpTime: 5

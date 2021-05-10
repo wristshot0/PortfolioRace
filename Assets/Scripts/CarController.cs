@@ -94,6 +94,9 @@ public abstract class CarController : MonoBehaviour
 
     protected IEnumerator PowerUp(PowerUp powerUp)
     {
+        // Engine unblown!
+        engineBlown = false;
+
         riskAversion = powerUp.newRiskAversion;
         topSpeed = powerUp.newTopSpeed;
 
