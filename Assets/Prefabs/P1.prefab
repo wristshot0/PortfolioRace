@@ -10320,7 +10320,7 @@ MonoBehaviour:
   topSpeed: 7
   acceleration: 1
   brakingAcceleration: -1
-  riskAversion: 0.15
+  riskAversion: 0.1
   minBlowupTopSpeedPercentage: 0.67
   engineCheckTime: 2
   engineBlownTime: 5

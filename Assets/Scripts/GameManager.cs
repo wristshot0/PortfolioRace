@@ -54,7 +54,17 @@ public class GameManager : MonoBehaviour
                     + startingLineT.position.y, 0.9f * (finishLineT.position.y - startingLineT.position.y)
                     + startingLineT.position.y);
 
-                Instantiate(powerUps[Random.Range(0, powerUps.Length)], new Vector2(xLoc, yLoc), Quaternion.identity);
+                // Avoid Gam Gams generally.
+                float randNum = Random.Range(0, 10);
+                int powerUpChoice;
+                if (randNum < 4)
+                    powerUpChoice = 0;
+                else if (randNum < 9)
+                    powerUpChoice = 1;
+                else
+                    powerUpChoice = 2;
+
+                Instantiate(powerUps[powerUpChoice], new Vector2(xLoc, yLoc), Quaternion.identity);
             }
         }
     }

@@ -316,4 +316,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpMessage: Risk tolerance max!
   newRiskAversion: 0
-  newTopSpeed: 11
+  newTopSpeed: 12
