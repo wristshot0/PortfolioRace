@@ -129,8 +129,6 @@ public abstract class CarController : MonoBehaviour
             - minBlowupTopSpeedPercentage * topSpeed)
             / (topSpeed - minBlowupTopSpeedPercentage * topSpeed);
 
-        print(pBlow);
-
         return Mathf.Max(0f, Mathf.Min(1f, pBlow));
     }
 
