@@ -13,12 +13,15 @@ public class PlayerController : CarController
 
     // Tachometer needle
     [SerializeField] private RectTransform tachNeedleRT;
-    private Vector2 minTach = new Vector2(-950f, 350f);
-    private Vector2 maxTach = new Vector2 (950f, 350f);
+
+    // Gas pedal.
+    [SerializeField] private RectTransform gasPedal;
 
     // Risk assessment.
     [SerializeField] private Image riskBannerImage;
     [SerializeField] private Text riskText;
+    [SerializeField] private Image crashBannerImage;
+    [SerializeField] private Text crashProbability;
 
     // Power-up
     [SerializeField] private GameObject powerUpText;
@@ -28,6 +31,9 @@ public class PlayerController : CarController
 
     // Place.
     [SerializeField] private Text placeText;
+    [SerializeField] private Transform[] playerTs;
+    [SerializeField] private Transform[] placeMarkers;
+    [SerializeField] private TextMeshPro[] playerDistances;
 
     private void Update()
     {
@@ -40,14 +46,35 @@ public class PlayerController : CarController
 
         AssessRisk();
         MoveTachometer();
+        PushGasPedal();
         MakeEngineNoise();
+        GetDistances();
+    }
+
+    private void GetDistances()
+    {
+        for (int i = 1; i < playerTs.Length; i++)
+        {
+            float distancefromP1 = playerTs[i].position.y - playerTs[0].position.y;
+
+            // Direct place marker.
+            if (distancefromP1 > 0)
+                placeMarkers[i - 1].localScale = new Vector2(0.1f, -0.1f);
+            else
+                placeMarkers[i - 1].localScale = new Vector2(0.1f, 0.1f);
+
+            playerDistances[i - 1].text = distancefromP1.ToString("0") + " m";
+        }
     }
 
     private void AssessRisk()
     {
         float relativeRisk = currentSpeed / topSpeed;
 
-        riskBannerImage.color = Color.HSVToRGB((1f - relativeRisk) * 0.333f, 1f, 1f);
+        Color newColor = Color.HSVToRGB((1f - relativeRisk) * 0.333f, 1f, 1f);
+        newColor.a = 0.5f;
+        riskBannerImage.color = newColor;
+        crashBannerImage.color = newColor;
 
         if (relativeRisk < 0.33f)
             riskText.text = "Risk: Low";
@@ -56,12 +83,25 @@ public class PlayerController : CarController
         else if (relativeRisk < 0.9f)
             riskText.text = "Risk: High";
         else
-            riskText.text = "Risk: Very High";
+            riskText.text = "Risk: High+";
+
+        crashProbability.text = "CRASH " + (PBlowUp() * 100f).ToString("0") + "%";
     }
 
     private void MoveTachometer()
     {
-        tachNeedleRT.anchoredPosition = minTach + (maxTach - minTach) * currentSpeed / topSpeed;
+        Vector3 startRotation = new Vector3(0f, 0f, 90f);
+        Vector3 endRotation = new Vector3(0f, 0f, -90f);
+
+        tachNeedleRT.rotation = Quaternion.Euler(startRotation + (endRotation - startRotation) * currentSpeed / topSpeed);
+    }
+
+    private void PushGasPedal()
+    {
+        if (playerTouching)
+            gasPedal.localScale = Vector2.one * 0.75f;
+        else
+            gasPedal.localScale = Vector2.one;
     }
 
     protected override void FixedUpdate()
